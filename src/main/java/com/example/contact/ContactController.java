@@ -5,17 +5,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
-@RestController
-@CrossOrigin
+@Controller
 public class ContactController {
 
     @Autowired
     private EmailService emailService;
 
-    @PostMapping("/contact")
-    public ResponseEntity<String> handleContact(@RequestBody ContactForm form) {
-        emailService.sendMail(form);
-        return ResponseEntity.ok("Success");
-    }
+ @PostMapping("/contact")
+public String handleContactForm(@ModelAttribute ContactForm form) {
+    emailService.sendMail(form);
+    return "redirect:/thank-you.html"; // Load thank-you.html from src/main/resources/static
 }
 
+}
