@@ -11,10 +11,10 @@ public class ContactController {
     @Autowired
     private EmailService emailService;
 
-    @PostMapping("/contact")
-    public String handleContactForm(@ModelAttribute ContactForm form, Model model) {
-        emailService.sendMail(form);
-        model.addAttribute("name", form.getName());
-        return "thank-you"; // This will load thank-you.html from src/main/resources/templates if using Thymeleaf
-    }
+ @PostMapping("/contact")
+public String handleContactForm(@ModelAttribute ContactForm form) {
+    emailService.sendMail(form);
+    return "redirect:/thank-you.html"; // Load thank-you.html from src/main/resources/static
+}
+
 }
