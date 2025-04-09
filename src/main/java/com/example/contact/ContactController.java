@@ -1,19 +1,20 @@
 package com.example.contact;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
-@RestController
-@RequestMapping("/contact")
+@Controller
 public class ContactController {
 
     @Autowired
     private EmailService emailService;
 
-    @PostMapping
-    public ResponseEntity<String> handleContactForm(@RequestBody ContactForm form) {
+    @PostMapping("/contact")
+    public String handleContactForm(@ModelAttribute ContactForm form, Model model) {
         emailService.sendMail(form);
-        return ResponseEntity.ok("Form submitted successfully!");
+        model.addAttribute("name", form.getName());
+        return "thank-you"; // This will load thank-you.html from src/main/resources/templates if using Thymeleaf
     }
 }
