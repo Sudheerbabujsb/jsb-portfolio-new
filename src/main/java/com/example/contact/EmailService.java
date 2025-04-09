@@ -16,6 +16,7 @@ public class EmailService {
         message.setTo("sudheerbabujsb@gmail.com");
         message.setSubject("New Contact Form Submission: " + form.getSubject());
         message.setText("Name: " + form.getName() + "\nEmail: " + form.getEmail() + "\nMessage:\n" + form.getMessage());
+
         mailSender.send(message);
     }
 }
