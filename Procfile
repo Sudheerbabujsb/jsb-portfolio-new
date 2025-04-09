@@ -1,0 +1,1 @@
+web: java -jar target/contact-form-backend-0.0.1-SNAPSHOT.jar
