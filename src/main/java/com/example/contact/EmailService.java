@@ -5,24 +5,17 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-@Configuration
-public class MailConfig {
+@Service
+public class EmailService {
 
-    @Bean
-    public JavaMailSender getJavaMailSender() {
-        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.gmail.com");
-        mailSender.setPort(587);
+    @Autowired
+    private JavaMailSender mailSender;
 
-        mailSender.setUsername("sudheerbabujsb@gmail.com");
-        mailSender.setPassword("dakb xgah wslq blhq");
-
-        Properties props = mailSender.getJavaMailProperties();
-        props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.debug", "true");
-
-        return mailSender;
+    public void sendMail(ContactForm form) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo("sudheerbabujsb@gmail.com");
+        message.setSubject("New Contact Form Submission: " + form.getSubject());
+        message.setText("Name: " + form.getName() + "\nEmail: " + form.getEmail() + "\nMessage:\n" + form.getMessage());
+        mailSender.send(message);
     }
 }
